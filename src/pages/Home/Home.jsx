@@ -14,9 +14,9 @@ const Home = () => {
           <div className="content">
             <h1>The best cookie clicker</h1>
             <p>
-              Muviz is the world's most popular and authoritative source for
-              movie, TV and celebrity content. Find ratings and reviews for the
-              newest movie and TV shows.
+              Cookiz is the world's most popular cookie clicker, the idle and
+              free online game. Start competing right now, get any achievement
+              and buy new gifts in the store.
             </p>
             <Button
               component={Link}

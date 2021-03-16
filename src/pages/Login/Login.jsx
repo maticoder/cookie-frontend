@@ -48,7 +48,7 @@ const Login = () => {
         <div className="top">
           <div className="content">
             <h1>Sign in</h1>
-            <p>Find every movie</p>
+            <p>Start clicking now</p>
             <ColorButton
               className="facebook-button"
               variant="contained"
