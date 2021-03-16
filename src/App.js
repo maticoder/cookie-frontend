@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { SnackbarProvider } from "notistack";
 
 import Navbar from "./components/Navbar/Navbar.jsx";
 
@@ -12,6 +14,8 @@ import Register from "./pages/Register/Register.jsx";
 import { animation } from "./utils/animations.js";
 
 import "./App.scss";
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const theme = createMuiTheme({
   palette: {
@@ -41,32 +45,39 @@ const withAnimation = (Component) => (props) => {
 const App = () => {
   return (
     <div className="app">
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Route
-            render={({ location }) => (
-              <>
-                <Navbar />
-                <AnimatePresence exitBeforeEnter={true}>
-                  <Switch location={location} key={location.pathname}>
-                    <Route path="/" exact component={withAnimation(Home)} />
-                    <Route
-                      path="/login"
-                      exact
-                      component={withAnimation(Login)}
-                    />
-                    <Route
-                      path="/register"
-                      exact
-                      component={withAnimation(Register)}
-                    />
-                  </Switch>
-                </AnimatePresence>
-              </>
-            )}
-          />
-        </Router>
-      </ThemeProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Route
+              render={({ location }) => (
+                <>
+                  <Navbar />
+                  <AnimatePresence exitBeforeEnter={true}>
+                    <Switch location={location} key={location.pathname}>
+                      <Route path="/" exact component={withAnimation(Home)} />
+                      <Route
+                        path="/login"
+                        exact
+                        component={withAnimation(Login)}
+                      />
+                      <Route
+                        path="/register"
+                        exact
+                        component={withAnimation(Register)}
+                      />
+                    </Switch>
+                  </AnimatePresence>
+                </>
+              )}
+            />
+          </Router>
+        </ThemeProvider>
+      </SnackbarProvider>
     </div>
   );
 };

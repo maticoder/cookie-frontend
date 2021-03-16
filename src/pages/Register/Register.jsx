@@ -6,12 +6,16 @@ import {
   Checkbox,
   CircularProgress,
 } from "@material-ui/core";
+import axios from "axios";
+import { useSnackbar } from "notistack";
+
+import { SUCCESS, ERROR } from "../../constants/snackbars.js";
 
 import { ReactComponent as RegisterImage } from "../../images/register.svg";
 
 import "./Register.scss";
 
-const Register = () => {
+const Register = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,19 +24,38 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-    setTimeout(() => {
-      setLoading(false);
-      setErrors({
-        name: "Name is wrong",
-        email: "Email is wrong",
-        password: "Passowrd is wrong",
-        confirm: "You have to confirm password",
+
+    try {
+      const response = await axios.post("/api/user/signup", {
+        name,
+        email,
+        password,
+        confirm,
       });
-    }, 3000);
+      enqueueSnackbar(response.data.message, {
+        variant: SUCCESS,
+      });
+      history.push("/login");
+    } catch (error) {
+      const { message, errors } = error.response.data;
+      setErrors(
+        errors.reduce(
+          (prev, value) => ({ ...prev, [value.param]: value.msg }),
+          {}
+        )
+      );
+      enqueueSnackbar(message, {
+        variant: ERROR,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
