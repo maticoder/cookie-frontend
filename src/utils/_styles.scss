@@ -1,0 +1,84 @@
+@import "./colours";
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin header {
+  font-size: 4rem;
+  font-weight: 300;
+  color: $black;
+  line-height: 110%;
+}
+
+@mixin paragraph {
+  font-size: 1rem;
+  font-weight: 300;
+  color: $black;
+  line-height: 140%;
+}
+
+@mixin button {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+@mixin page {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  max-width: 400px;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+    flex: 1;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 576px) {
+    max-width: 30rem;
+  }
+
+  @media only screen and (min-width: 1200px) {
+    max-width: 1600px;
+    flex-direction: row;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 4rem;
+
+    .top {
+      flex: 1;
+      margin: 0;
+      justify-content: center;
+
+      .content {
+        max-width: 30rem;
+      }
+    }
+
+    .bottom {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .img-container {
+        width: 100%;
+        max-width: 35rem;
+      }
+    }
+  }
+}

@@ -9,4 +9,39 @@
 html,
 body {
   font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1600px;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+
+  @media only screen and (min-width: 1200px) {
+    padding: 0 5rem;
+  }
+}
+
+.img-container {
+  width: 100%;
+
+  img,
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a,
+button {
+  text-transform: none !important;
 }

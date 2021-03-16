@@ -1,0 +1,83 @@
+@import "../../utils/colours";
+@import "../../utils/styles";
+
+#login {
+  .login {
+    .top {
+      .content {
+        h1 {
+          @include header;
+          margin-bottom: 1rem;
+        }
+
+        & > p {
+          @include paragraph;
+          margin-bottom: 1.4rem;
+        }
+
+        button {
+          @include button;
+
+          &.facebook-button {
+            margin-bottom: 1.4rem;
+          }
+        }
+
+        .divider {
+          position: relative;
+
+          p {
+            background-color: $white;
+            padding: 0 1rem;
+            margin: 0;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+          }
+
+          .line {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.2);
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            margin: 0;
+          }
+        }
+
+        form {
+          .input {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+
+            &.forgot {
+              p {
+                @include paragraph;
+                margin: 0.5rem 0 0;
+
+                a {
+                  color: $main;
+                }
+              }
+            }
+          }
+        }
+
+        .account {
+          margin: 1.5rem 0;
+
+          a {
+            color: $main;
+          }
+        }
+      }
+    }
+
+    @include page;
+  }
+}

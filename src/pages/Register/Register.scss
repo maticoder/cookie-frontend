@@ -1,0 +1,64 @@
+@import "../../utils/colours";
+@import "../../utils/styles";
+
+#register {
+  .register {
+    .top {
+      .content {
+        h1 {
+          @include header;
+          margin-bottom: 1rem;
+        }
+
+        & > p {
+          @include paragraph;
+          margin-bottom: 1.4rem;
+        }
+
+        button {
+          @include button;
+        }
+
+        form {
+          .input {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+
+            &.check {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+
+              span {
+                padding: 0;
+                padding-right: 4px;
+              }
+
+              p {
+                @include paragraph;
+                margin: 0;
+              }
+
+              a {
+                color: $main;
+              }
+            }
+          }
+        }
+
+        .account {
+          margin: 1.5rem 0;
+          font-size: 1rem;
+
+          a {
+            color: $main;
+          }
+        }
+      }
+    }
+
+    @include page;
+  }
+}
