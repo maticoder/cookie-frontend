@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
-
-import { UserContext } from "../../context/UserContext.js";
+import React from "react";
 
 import "./Dashboard.scss";
 
-const Dashboard = ({ addNotification, getCookie, history }) => {
-  const { user, logoutUser } = useContext(UserContext);
-
+const Dashboard = ({
+  user,
+  logoutUser,
+  addNotification,
+  getCookie,
+  history,
+}) => {
   return (
     <div className="dashboard">
       <h1>dashboard</h1>

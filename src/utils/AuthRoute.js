@@ -1,15 +1,16 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-import { UserContext } from "../context/UserContext.js";
+import { loginUser } from "../redux/actions/user.js";
 
-const AuthRoute = ({ component: Component, ...rest }) => {
-  let {
-    user: { authenticated },
-    loginUser,
-  } = useContext(UserContext);
-
+const AuthRoute = ({
+  component: Component,
+  authenticated,
+  loginUser,
+  ...rest
+}) => {
   const token = localStorage.getItem("token");
   if (token && !authenticated) {
     authenticated = true;
@@ -26,15 +27,20 @@ const AuthRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-AuthRoute.contextTypes = {
+AuthRoute.propTypes = {
+  component: PropTypes.shape({}),
   user: PropTypes.shape({
     authenticated: PropTypes.bool,
   }),
   loginUser: PropTypes.func,
 };
 
-AuthRoute.propTypes = {
-  component: PropTypes.shape({}),
+const mapStateToProps = (state) => ({
+  authenticated: state.user.authenticated,
+});
+
+const mapDispatchToProps = {
+  loginUser,
 };
 
-export default AuthRoute;
+export default connect(mapStateToProps, mapDispatchToProps)(AuthRoute);

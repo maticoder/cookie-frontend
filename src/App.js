@@ -8,8 +8,6 @@ import { SnackbarProvider } from "notistack";
 
 import store from "./redux/store.js";
 
-import { UserProvider } from "./context/UserContext.js";
-
 import AuthRoute from "./utils/AuthRoute.js";
 
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -67,45 +65,36 @@ const App = () => {
   return (
     <div className="app">
       <Provider store={store}>
-        <UserProvider>
-          <SnackbarProvider
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-          >
-            <ThemeProvider theme={theme}>
-              <Router>
-                <Route
-                  render={({ location }) => (
-                    <>
-                      <Notifier />
-                      <Navbar />
-                      <AnimatePresence exitBeforeEnter={true}>
-                        <Switch location={location} key={location.pathname}>
-                          <Route
-                            path="/"
-                            exact
-                            component={withAnimation(Home)}
-                          />
-                          <Route
-                            path="/login"
-                            component={withAnimation(Login)}
-                          />
-                          <Route
-                            path="/register"
-                            component={withAnimation(Register)}
-                          />
-                          <AuthRoute path="/dashboard" component={Dashboard} />
-                        </Switch>
-                      </AnimatePresence>
-                    </>
-                  )}
-                />
-              </Router>
-            </ThemeProvider>
-          </SnackbarProvider>
-        </UserProvider>
+        <SnackbarProvider
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+        >
+          <ThemeProvider theme={theme}>
+            <Router>
+              <Route
+                render={({ location }) => (
+                  <>
+                    <Notifier />
+                    <Navbar />
+                    <AnimatePresence exitBeforeEnter={true}>
+                      <Switch location={location} key={location.pathname}>
+                        <Route path="/" exact component={withAnimation(Home)} />
+                        <Route path="/login" component={withAnimation(Login)} />
+                        <Route
+                          path="/register"
+                          component={withAnimation(Register)}
+                        />
+                        <AuthRoute path="/dashboard" component={Dashboard} />
+                      </Switch>
+                    </AnimatePresence>
+                  </>
+                )}
+              />
+            </Router>
+          </ThemeProvider>
+        </SnackbarProvider>
       </Provider>
     </div>
   );
