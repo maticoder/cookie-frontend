@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   withStyles,
   Button,
@@ -6,8 +7,11 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { indigo } from "@material-ui/core/colors";
-import FacebookIcon from "@material-ui/icons/Facebook";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import FacebookIcon from "@material-ui/icons/Facebook";
+
+import { SUCCESS, ERROR } from "../../constants/snackbars.js";
 
 import { ReactComponent as LoginImage } from "../../images/login.svg";
 
@@ -23,23 +27,44 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const Login = () => {
+const Login = ({ history, loginUser, addNotification }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-    setTimeout(() => {
-      setLoading(false);
-      setErrors({
-        email: "Email is wrong",
-        password: "Something is wrong",
+
+    try {
+      const response = await axios.post("/api/user/signin", {
+        email,
+        password,
       });
-    }, 3000);
+      const { token, message } = response.data;
+      addNotification({
+        type: SUCCESS,
+        message: message,
+      });
+      loginUser(token);
+      history.push("/dashboard");
+    } catch (error) {
+      const { message, errors } = error.response.data;
+      setErrors(
+        errors.reduce(
+          (prev, value) => ({ ...prev, [value.param]: value.msg }),
+          {}
+        )
+      );
+      addNotification({
+        type: ERROR,
+        message,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -125,6 +150,10 @@ const Login = () => {
       </div>
     </div>
   );
+};
+
+Login.propTypes = {
+  loginUser: PropTypes.func,
 };
 
 export default Login;
