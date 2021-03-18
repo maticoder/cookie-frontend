@@ -20,7 +20,7 @@ const Home = () => {
             </p>
             <Button
               component={Link}
-              to="/register"
+              to="/dashboard"
               color="primary"
               variant="contained"
             >

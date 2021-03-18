@@ -10,7 +10,7 @@ import store from "./redux/store.js";
 
 import AuthRoute from "./utils/AuthRoute.js";
 
-import Navbar from "./components/Navbar/Navbar.jsx";
+import Navbar from "./components/Navbar/Navbar.js";
 import Notifier from "./components/Notifier/Notifier.js";
 
 import Home from "./pages/Home/Home.jsx";

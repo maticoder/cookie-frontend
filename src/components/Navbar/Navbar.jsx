@@ -9,7 +9,7 @@ import { ReactComponent as Logo } from "../../images/logo.svg";
 
 import "./Navbar.scss";
 
-const Navbar = () => {
+const Navbar = ({ authenticated, logoutUser }) => {
   const [active, setActive] = useState(false);
   const [animation, setAnimation] = useState(null);
   const [direction, setDirection] = useState(-1);
@@ -58,26 +58,34 @@ const Navbar = () => {
             }}
           ></div>
           <div className={`navigation ${active ? "active" : ""}`}>
-            <ul className="nav-links">
-              <li className="nav-link">
-                <Link to="/">Home</Link>
-              </li>
-              <li className="nav-link">
-                <Link to="/about">About</Link>
-              </li>
-              <li className="nav-link">
-                <Link to="/services">Services</Link>
-              </li>
-              <li className="nav-link">
-                <Link to="/contact">Contact</Link>
-              </li>
-              <li className="nav-link">
-                <Link to="/login">Sign in</Link>
-              </li>
-              <li className="nav-link">
-                <Link to="/register">Sign up</Link>
-              </li>
-            </ul>
+            {authenticated ? (
+              <ul className="nav-links">
+                <li className="nav-link">
+                  <span onClick={logoutUser}>Logout</span>
+                </li>
+              </ul>
+            ) : (
+              <ul className="nav-links">
+                <li className="nav-link">
+                  <Link to="/">Home</Link>
+                </li>
+                <li className="nav-link">
+                  <Link to="/about">About</Link>
+                </li>
+                <li className="nav-link">
+                  <Link to="/services">Services</Link>
+                </li>
+                <li className="nav-link">
+                  <Link to="/contact">Contact</Link>
+                </li>
+                <li className="nav-link">
+                  <Link to="/login">Sign in</Link>
+                </li>
+                <li className="nav-link">
+                  <Link to="/register">Sign up</Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
@@ -85,6 +93,9 @@ const Navbar = () => {
   );
 };
 
-Navbar.propTypes = {};
+Navbar.propTypes = {
+  authenticated: PropTypes.bool,
+  logoutUser: PropTypes.func,
+};
 
 export default Navbar;
