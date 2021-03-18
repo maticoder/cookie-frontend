@@ -8,7 +8,6 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import axios from "axios";
-import { useSnackbar } from "notistack";
 
 import { SUCCESS, ERROR } from "../../constants/snackbars.js";
 
@@ -24,8 +23,6 @@ const Register = ({ history, addNotification }) => {
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
