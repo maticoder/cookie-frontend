@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import {
   withStyles,
@@ -10,6 +10,8 @@ import { indigo } from "@material-ui/core/colors";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@material-ui/icons/Facebook";
+
+import { UserContext } from "../../context/UserContext.js";
 
 import { SUCCESS, ERROR } from "../../constants/snackbars.js";
 
@@ -27,11 +29,13 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const Login = ({ history, loginUser, addNotification }) => {
+const Login = ({ history, addNotification }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const { loginUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -152,8 +156,15 @@ const Login = ({ history, loginUser, addNotification }) => {
   );
 };
 
-Login.propTypes = {
+Login.contextTypes = {
   loginUser: PropTypes.func,
+};
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  addNotification: PropTypes.func,
 };
 
 export default Login;

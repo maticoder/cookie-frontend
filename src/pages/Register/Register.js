@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import Login from "./Login.jsx";
+import Register from "./Register.jsx";
 
 import { addNotification } from "../../redux/actions/notification.js";
 
@@ -10,4 +10,4 @@ const mapDispatchToProps = {
   addNotification,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

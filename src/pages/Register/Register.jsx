@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -15,7 +16,7 @@ import { ReactComponent as RegisterImage } from "../../images/register.svg";
 
 import "./Register.scss";
 
-const Register = ({ history }) => {
+const Register = ({ history, addNotification }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,8 +39,10 @@ const Register = ({ history }) => {
         password,
         confirm,
       });
-      enqueueSnackbar(response.data.message, {
-        variant: SUCCESS,
+      const { message } = response.data;
+      addNotification({
+        message,
+        type: SUCCESS,
       });
       history.push("/login");
     } catch (error) {
@@ -50,8 +53,9 @@ const Register = ({ history }) => {
           {}
         )
       );
-      enqueueSnackbar(message, {
-        variant: ERROR,
+      addNotification({
+        message,
+        type: ERROR,
       });
     } finally {
       setLoading(false);
@@ -162,6 +166,13 @@ const Register = ({ history }) => {
       </div>
     </div>
   );
+};
+
+Register.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  addNotification: PropTypes.func,
 };
 
 export default Register;

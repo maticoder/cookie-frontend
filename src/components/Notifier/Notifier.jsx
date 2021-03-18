@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useSnackbar } from "notistack";
 
 const Notifier = ({ notifications, removeNotification }) => {
@@ -21,6 +22,21 @@ const Notifier = ({ notifications, removeNotification }) => {
   });
 
   return null;
+};
+
+Notifier.contextTypes = {
+  enqueueSnackbar: PropTypes.func,
+};
+
+Notifier.propTypes = {
+  notifications: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.number,
+      type: PropTypes.string,
+      message: PropTypes.string,
+    })
+  ),
+  removeNotification: PropTypes.func,
 };
 
 export default Notifier;

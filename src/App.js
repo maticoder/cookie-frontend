@@ -10,12 +10,14 @@ import store from "./redux/store.js";
 
 import { UserProvider } from "./context/UserContext.js";
 
+import AuthRoute from "./utils/AuthRoute.js";
+
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Notifier from "./components/Notifier/Notifier.js";
 
 import Home from "./pages/Home/Home.jsx";
 import Login from "./pages/Login/Login.js";
-import Register from "./pages/Register/Register.jsx";
+import Register from "./pages/Register/Register.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
 
 import { animation } from "./utils/animations.js";
@@ -94,7 +96,7 @@ const App = () => {
                             path="/register"
                             component={withAnimation(Register)}
                           />
-                          <Route path="/dashboard" component={Dashboard} />
+                          <AuthRoute path="/dashboard" component={Dashboard} />
                         </Switch>
                       </AnimatePresence>
                     </>
