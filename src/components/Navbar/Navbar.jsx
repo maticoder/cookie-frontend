@@ -6,10 +6,11 @@ import lottie from "lottie-web";
 import animationData from "./menu.json";
 
 import { ReactComponent as Logo } from "../../images/logo.svg";
+import { ReactComponent as LogoWhite } from "../../images/logo-white.svg";
 
 import "./Navbar.scss";
 
-const Navbar = ({ authenticated, logoutUser }) => {
+const Navbar = ({ user: { authenticated }, logoutUser }) => {
   const [active, setActive] = useState(false);
   const [animation, setAnimation] = useState(null);
   const [direction, setDirection] = useState(-1);
@@ -94,7 +95,9 @@ const Navbar = ({ authenticated, logoutUser }) => {
 };
 
 Navbar.propTypes = {
-  authenticated: PropTypes.bool,
+  user: PropTypes.shape({
+    authenticated: PropTypes.bool,
+  }),
   logoutUser: PropTypes.func,
 };
 

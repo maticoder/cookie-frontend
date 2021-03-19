@@ -1,37 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button, Typography } from "@material-ui/core";
 
 import "./Dashboard.scss";
 
-const Dashboard = ({
-  user,
-  logoutUser,
-  addNotification,
-  getCookie,
-  history,
-}) => {
+const Dashboard = () => {
+  const [counter, setCounter] = useState(0);
+
   return (
     <div className="dashboard">
-      <h1>dashboard</h1>
-      <p>hello {user.name}</p>
-      <button
-        onClick={() =>
-          addNotification({
-            type: "success",
-            message: "Yeah",
-          })
-        }
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setCounter((c) => c + 1)}
       >
-        Klik
-      </button>
-      <button onClick={getCookie}>Do</button>
-      <button
-        onClick={() => {
-          logoutUser();
-          history.push("/login");
-        }}
-      >
-        Logout
-      </button>
+        Klik {counter}
+      </Button>
     </div>
   );
 };

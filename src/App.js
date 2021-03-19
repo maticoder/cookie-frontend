@@ -8,6 +8,10 @@ import { SnackbarProvider } from "notistack";
 
 import store from "./redux/store.js";
 
+import withAnimation from "./hoc/withAnimation.js";
+import withSidebar from "./hoc/withSidebar.js";
+import withLoader from "./hoc/withLoader.js";
+
 import AuthRoute from "./utils/AuthRoute.js";
 
 import Navbar from "./components/Navbar/Navbar.js";
@@ -17,6 +21,8 @@ import Home from "./pages/Home/Home.jsx";
 import Login from "./pages/Login/Login.js";
 import Register from "./pages/Register/Register.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
+import Achievements from "./pages/Achievements/Achievements.jsx";
+import Shop from "./pages/Shop/Shop.jsx";
 
 import { animation } from "./utils/animations.js";
 
@@ -48,19 +54,6 @@ const theme = createMuiTheme({
   },
 });
 
-const withAnimation = (Component) => (props) => {
-  return (
-    <motion.div
-      initial="enter"
-      animate="animate"
-      exit="exit"
-      variants={animation}
-    >
-      <Component {...props} />
-    </motion.div>
-  );
-};
-
 const App = () => {
   return (
     <div className="app">
@@ -86,7 +79,24 @@ const App = () => {
                           path="/register"
                           component={withAnimation(Register)}
                         />
-                        <AuthRoute path="/dashboard" component={Dashboard} />
+                        <AuthRoute
+                          path="/dashboard"
+                          component={withLoader(
+                            withAnimation(withSidebar(Dashboard))
+                          )}
+                        />
+                        <AuthRoute
+                          path="/achievements"
+                          component={withLoader(
+                            withAnimation(withSidebar(Achievements))
+                          )}
+                        />
+                        <AuthRoute
+                          path="/shop"
+                          component={withLoader(
+                            withAnimation(withSidebar(Shop))
+                          )}
+                        />
                       </Switch>
                     </AnimatePresence>
                   </>

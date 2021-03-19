@@ -28,7 +28,7 @@ const AuthRoute = ({
 };
 
 AuthRoute.propTypes = {
-  component: PropTypes.shape({}),
+  // component: PropTypes.shape({}),
   user: PropTypes.shape({
     authenticated: PropTypes.bool,
   }),

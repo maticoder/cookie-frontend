@@ -3,3 +3,6 @@ export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
 
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
+
+export const SHOW_LOADER = "SHOW_LOADER";
+export const HIDE_LOADER = "HIDE_LOADER";

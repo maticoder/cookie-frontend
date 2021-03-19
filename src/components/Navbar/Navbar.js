@@ -5,7 +5,7 @@ import Navbar from "./Navbar.jsx";
 import { logoutUser } from "../../redux/actions/user.js";
 
 const mapStateToProps = (state) => ({
-  authenticated: state.user.authenticated,
+  user: state.user,
 });
 
 const mapDispatchToProps = {
