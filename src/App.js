@@ -21,7 +21,7 @@ import Home from "./pages/Home/Home.jsx";
 import Login from "./pages/Login/Login.js";
 import Register from "./pages/Register/Register.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
-import Achievements from "./pages/Achievements/Achievements.jsx";
+import Achievements from "./pages/Achievements/Achievements.js";
 import Shop from "./pages/Shop/Shop.jsx";
 
 import { animation } from "./utils/animations.js";

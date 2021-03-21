@@ -7,7 +7,7 @@ const Notifier = ({ notifications, removeNotification }) => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  notifications.map((notification) => {
+  notifications.forEach((notification) => {
     setTimeout(() => {
       if (displayed.filter((key) => key === notification.key).length > 0) {
         return;

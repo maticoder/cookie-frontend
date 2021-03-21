@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Loader from "../components/Loader/Loader.jsx";
 
-export default function (ComposedClass) {
+const withLoader = function (ComposedClass) {
   class Component extends React.Component {
     render() {
       return this.props.loader ? <Loader /> : <ComposedClass {...this.props} />;
@@ -17,4 +17,6 @@ export default function (ComposedClass) {
   const mapDispatchToProps = {};
 
   return connect(mapStateToProps, mapDispatchToProps)(Component);
-}
+};
+
+export default withLoader;

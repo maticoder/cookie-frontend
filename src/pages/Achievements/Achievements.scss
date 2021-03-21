@@ -1,2 +1,13 @@
 .achievements {
+  h1 {
+    text-align: center;
+    margin: 2rem;
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

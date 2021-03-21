@@ -6,7 +6,6 @@ import lottie from "lottie-web";
 import animationData from "./menu.json";
 
 import { ReactComponent as Logo } from "../../images/logo.svg";
-import { ReactComponent as LogoWhite } from "../../images/logo-white.svg";
 
 import "./Navbar.scss";
 

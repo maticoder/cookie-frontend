@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -21,6 +21,7 @@ const drawerMobileWidth = 60;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    minHeight: "100vh",
   },
   drawer: {
     width: drawerWidth,
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   drawerContainer: {
-    overflow: "auto",
+    overflow: "hidden",
   },
   content: {
     flexGrow: 1,

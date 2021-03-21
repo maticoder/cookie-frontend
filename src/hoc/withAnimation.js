@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 import { animation } from "../utils/animations.js";
 
-export default (Component) => (props) => {
+const withAnimation = (Component) => (props) => {
   return (
     <motion.div
       initial="enter"
@@ -14,3 +14,5 @@ export default (Component) => (props) => {
     </motion.div>
   );
 };
+
+export default withAnimation;
