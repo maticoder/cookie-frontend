@@ -10,6 +10,8 @@ class Dashboard extends Component {
 
     this.state = {
       counter: props.user.counter,
+      multiplier:
+        props.items.find((item) => item._id === props.user.item)?.value || 1,
     };
 
     this.prevCounter = 0;
@@ -50,12 +52,13 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    // this.interval = setInterval(async () => {
-    //   console.log("cos");
-    // }, 3000);
+    this.interval = setInterval(async () => {
+      this.props.saveUserProgress(this.state.counter);
+    }, 60000);
     this.perSecondInterval = setInterval(() => {
       this.prevCounter = this.counter;
       this.counter = this.state.counter;
+      this.props.updateUserProgress(this.state.counter);
       this.checkIfAchievementIsUnlocked(
         this.state.counter,
         this.counter - this.prevCounter
@@ -63,46 +66,31 @@ class Dashboard extends Component {
     }, 1000);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.counter !== this.state.counter) {
-      this.checkIfCountAchievementIsUnlocked(this.state.counter);
-    }
-  }
-
   componentWillUnmount() {
     this.props.saveUserProgress(this.state.counter);
+    clearInterval(this.interval);
     clearInterval(this.perSecondInterval);
   }
 
   handleCounterClick = () => {
     this.setState((prevState) => {
-      // this.checkIfCountAchievementIsUnlocked(prevState.counter + 1);
       return {
-        counter: prevState.counter + 1,
+        counter: prevState.counter + this.state.multiplier,
       };
     });
   };
 
   render() {
-    const { saveUserProgress } = this.props;
-
     return (
       <div className="dashboard">
         <Button
           variant="contained"
           color="primary"
           onClick={this.handleCounterClick}
+          size="large"
         >
           Klik {this.state.counter}
         </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => saveUserProgress(this.state.counter)}
-        >
-          Save
-        </Button>
-        <Button onClick={() => this.setState({ counter: 110 })}>Change</Button>
       </div>
     );
   }
@@ -123,8 +111,18 @@ Dashboard.propTypes = {
       description: PropTypes.string,
     })
   ),
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      name: PropTypes.string,
+      value: PropTypes.number,
+      prize: PropTypes.number,
+      description: PropTypes.string,
+    })
+  ),
   saveUserProgress: PropTypes.func,
   saveUserAchievement: PropTypes.func,
+  updateUserProgress: PropTypes.func,
 };
 
 export default Dashboard;

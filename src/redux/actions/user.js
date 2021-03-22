@@ -6,13 +6,14 @@ import {
   GET_USER_DATA_FAILURE,
   SAVE_USER_DATA_SUCCESS,
   SAVE_USER_DATA_FAILURE,
+  UPDATE_USER_PROGRESS,
 } from "../types.js";
 import {
   addSuccessNotification,
   addErrorNotification,
 } from "./notification.js";
 import { showLoader, hideLoader } from "./ui.js";
-import { getAchievements } from "./data.js";
+import { getAchievements, getItems } from "./data.js";
 import { parseJWT } from "../../utils/token.js";
 
 export const loginUser = (token) => async (dispatch) => {
@@ -31,6 +32,7 @@ export const loginUser = (token) => async (dispatch) => {
 
   // fetch user data
   await dispatch(getAchievements());
+  await dispatch(getItems());
   await dispatch(getUserData());
 
   // dispatch(hideLoader());
@@ -70,6 +72,11 @@ export const getUserData = () => async (dispatch) => {
   }
 };
 
+export const updateUserProgress = (counter) => ({
+  type: UPDATE_USER_PROGRESS,
+  payload: counter,
+});
+
 export const saveUserProgressSuccess = (data) => ({
   type: SAVE_USER_DATA_SUCCESS,
   payload: data,
@@ -86,14 +93,13 @@ export const saveUserProgress = (counter) => async (dispatch, getState) => {
   try {
     if (user.authenticated) {
       await axios.patch("/api/cookie/progress", {
-        id: user.id,
         counter,
-        achievements: user.achievements,
       });
       dispatch(
         saveUserProgressSuccess({
           counter,
           achievements: user.achievements,
+          item: user.item,
         })
       );
       dispatch(addSuccessNotification("Progress saved succesfully"));
@@ -131,6 +137,7 @@ export const saveUserAchievement = (ids, counter) => async (
         saveUserAchievementSuccess({
           counter,
           achievements: [...user.achievements, ...ids],
+          item: user.item,
         })
       );
     }
@@ -138,5 +145,39 @@ export const saveUserAchievement = (ids, counter) => async (
     console.error(error);
     dispatch(addErrorNotification("Couldn't add achievement"));
     dispatch(saveUserAchievementFailure());
+  }
+};
+
+export const saveUserItemSuccess = (data) => ({
+  type: SAVE_USER_DATA_SUCCESS,
+  payload: data,
+});
+
+export const saveUserItemFailure = () => ({
+  type: SAVE_USER_DATA_FAILURE,
+  payload: null,
+});
+
+export const saveUserItem = (id, counter) => async (dispatch, getState) => {
+  const { user } = getState();
+
+  try {
+    if (user.authenticated) {
+      await axios.post("/api/cookie/item", {
+        id,
+        counter,
+      });
+      dispatch(addSuccessNotification("Bouns changed"));
+      dispatch(
+        saveUserAchievementSuccess({
+          counter,
+          achievements: user.achievements,
+          item: id,
+        })
+      );
+    }
+  } catch (error) {
+    dispatch(addErrorNotification("You cannot buy this item"));
+    dispatch(saveUserItemFailure());
   }
 };

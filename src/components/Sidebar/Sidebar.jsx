@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,6 +15,9 @@ import MailIcon from "@material-ui/icons/Mail";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import MouseIcon from "@material-ui/icons/Mouse";
+import TimelineIcon from "@material-ui/icons/Timeline";
 
 const drawerWidth = 240;
 const drawerMobileWidth = 60;
@@ -47,8 +51,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = ({ children }) => {
+const Sidebar = ({ user, items, children }) => {
   const classes = useStyles();
+
+  const calculateCurrentLevel = useMemo(
+    () => (counter) => {
+      const level = Math.trunc(Math.log2(counter / 10)) + 1;
+      return level === -Infinity ? 0 : level;
+    },
+    []
+  );
+
+  const multiplier = items.find((item) => item._id === user.item)?.value || 1;
 
   return (
     <div className={classes.root}>
@@ -89,14 +103,26 @@ const Sidebar = ({ children }) => {
           </List>
           <Divider />
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem>
+              <ListItemIcon>
+                <DirectionsWalkIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={`Level ${calculateCurrentLevel(user.counter)}`}
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <MouseIcon />
+              </ListItemIcon>
+              <ListItemText primary={`Clicks ${user.counter}`} />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <TimelineIcon />
+              </ListItemIcon>
+              <ListItemText primary={`Multiplier ${multiplier}`} />
+            </ListItem>
           </List>
         </div>
       </Drawer>
@@ -106,6 +132,13 @@ const Sidebar = ({ children }) => {
       </main>
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  user: PropTypes.shape({
+    counter: PropTypes.number,
+  }),
+  items: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default Sidebar;

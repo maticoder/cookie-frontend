@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar/Sidebar.jsx";
+import Sidebar from "../components/Sidebar/Sidebar.js";
 
 const withSidebar = (Component) => (props) => {
   return (

@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Achievement = ({ unlocked, type, value, name, level, description }) => {
+const Item = ({ active, type, value, name, prize, description, onClick }) => {
   const classes = useStyles();
 
   return (
@@ -41,29 +43,35 @@ const Achievement = ({ unlocked, type, value, name, level, description }) => {
           gutterBottom
         >
           {type.replace(/_/g, " ")}{" "}
-          {unlocked ? <CheckCircleIcon /> : <CancelIcon />}
+          {active ? <CheckCircleIcon /> : <CancelIcon />}
         </Typography>
         <Typography variant="h5" component="h2">
           {name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {level}
+          require {prize} clicks
         </Typography>
         <Typography variant="body2" component="p">
           {description}
         </Typography>
       </CardContent>
+      <CardActions>
+        <Button size="small" onClick={onClick}>
+          Buy
+        </Button>
+      </CardActions>
     </Card>
   );
 };
 
-Achievement.propTypes = {
+Item.propTypes = {
   unlocked: PropTypes.bool,
   type: PropTypes.string,
   value: PropTypes.number,
   name: PropTypes.string,
-  level: PropTypes.string,
+  prize: PropTypes.number,
   description: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
-export default Achievement;
+export default Item;

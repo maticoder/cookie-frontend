@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { SnackbarProvider } from "notistack";
 
@@ -22,9 +22,7 @@ import Login from "./pages/Login/Login.js";
 import Register from "./pages/Register/Register.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
 import Achievements from "./pages/Achievements/Achievements.js";
-import Shop from "./pages/Shop/Shop.jsx";
-
-import { animation } from "./utils/animations.js";
+import Shop from "./pages/Shop/Shop.js";
 
 import "./App.scss";
 

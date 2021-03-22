@@ -5,6 +5,7 @@ import {
   GET_USER_DATA_FAILURE,
   SAVE_USER_DATA_SUCCESS,
   SAVE_USER_DATA_FAILURE,
+  UPDATE_USER_PROGRESS,
 } from "../types.js";
 
 const initialState = {
@@ -31,12 +32,19 @@ const user = (state = initialState, action) => {
         ...state,
         counter: action.payload.counter,
         achievements: action.payload.achievements,
+        item: action.payload.item,
       };
     case SAVE_USER_DATA_SUCCESS:
       return {
         ...state,
         counter: action.payload.counter,
         achievements: action.payload.achievements,
+        item: action.payload.item,
+      };
+    case UPDATE_USER_PROGRESS:
+      return {
+        ...state,
+        counter: action.payload,
       };
     case GET_USER_DATA_FAILURE:
       return state;
