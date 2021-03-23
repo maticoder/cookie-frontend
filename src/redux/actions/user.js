@@ -30,13 +30,11 @@ export const loginUser = (token) => async (dispatch) => {
     },
   });
 
-  // fetch user data
   await dispatch(getAchievements());
   await dispatch(getItems());
   await dispatch(getUserData());
 
-  // dispatch(hideLoader());
-
+  // just for visibility purposes, the endpoint works really fast and loader is barely visible
   setTimeout(() => {
     dispatch(hideLoader());
   }, 3000);
