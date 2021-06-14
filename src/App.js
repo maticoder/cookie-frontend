@@ -23,6 +23,8 @@ import Register from "./pages/Register/Register.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
 import Achievements from "./pages/Achievements/Achievements.js";
 import Shop from "./pages/Shop/Shop.js";
+import Infinite from "./pages/Infinite/Infinite.jsx";
+import Users from "./pages/Users/Users.jsx";
 
 import "./App.scss";
 
@@ -93,6 +95,18 @@ const App = () => {
                           path="/shop"
                           component={withLoader(
                             withAnimation(withSidebar(Shop))
+                          )}
+                        />
+                        <AuthRoute
+                          path="/infinite"
+                          component={withLoader(
+                            withAnimation(withSidebar(Infinite))
+                          )}
+                        />
+                        <AuthRoute
+                          path="/users"
+                          component={withLoader(
+                            withAnimation(withSidebar(Users))
                           )}
                         />
                       </Switch>

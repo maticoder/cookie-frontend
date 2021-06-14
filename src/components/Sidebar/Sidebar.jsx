@@ -18,6 +18,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import MouseIcon from "@material-ui/icons/Mouse";
 import TimelineIcon from "@material-ui/icons/Timeline";
+import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
+import AccessibilityIcon from "@material-ui/icons/Accessibility";
 
 const drawerWidth = 240;
 const drawerMobileWidth = 60;
@@ -98,6 +100,22 @@ const Sidebar = ({ user, items, children }) => {
                   <ShoppingCartIcon />
                 </ListItemIcon>
                 <ListItemText primary="Shop" />
+              </ListItem>
+            </Link>
+            <Link to="/infinite">
+              <ListItem button>
+                <ListItemIcon>
+                  <AllInclusiveIcon />
+                </ListItemIcon>
+                <ListItemText primary="Infinite" />
+              </ListItem>
+            </Link>
+            <Link to="/users">
+              <ListItem button>
+                <ListItemIcon>
+                  <AccessibilityIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
               </ListItem>
             </Link>
           </List>

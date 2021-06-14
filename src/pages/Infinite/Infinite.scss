@@ -1,0 +1,28 @@
+#infinite {
+  .infinite {
+    .header {
+      text-align: center;
+      font-size: 4rem;
+      font-weight: 300;
+    }
+
+    .card {
+      margin: 1rem;
+      height: 100%;
+    }
+
+    .cards {
+      & > div {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    .load {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+  }
+}
